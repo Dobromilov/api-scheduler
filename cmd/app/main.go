@@ -2,6 +2,8 @@ package main
 
 import (
 	"Scheduler-api/internal/api"
+	"Scheduler-api/internal/config"
+	"Scheduler-api/internal/validator"
 	"Scheduler-api/pkg/logger"
 	"context"
 	"fmt"
@@ -13,14 +15,17 @@ import (
 )
 
 func main() {
-	port := getEnv("APP_PORT", "8080")
-	logLevel := getEnv("LOG_LEVEL", "info")
+	port := config.GetEnv("APP_PORT", "8080")
+	logLevel := config.GetEnv("LOG_LEVEL", "info")
 
 	if err := logger.Init(logLevel); err != nil {
 		fmt.Fprintf(os.Stderr, "Logger init failed: %v\n", err)
 		os.Exit(1)
 	}
+
 	defer logger.Sync()
+
+	validator.Init()
 
 	logger.Info("Starting Scheduler API", logger.String("port", port))
 
@@ -54,11 +59,4 @@ func main() {
 	}
 
 	logger.Info("Server exited")
-}
-
-func getEnv(key, fallback string) string {
-	if v, ok := os.LookupEnv(key); ok {
-		return v
-	}
-	return fallback
 }

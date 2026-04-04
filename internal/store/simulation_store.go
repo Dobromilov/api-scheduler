@@ -15,7 +15,7 @@ type Simulation struct {
 	EndTime    time.Time
 	CurrentTTI int
 	CancelFunc context.CancelFunc
-	ctx        context.Context
+	Ctx        context.Context
 }
 
 type Store struct {

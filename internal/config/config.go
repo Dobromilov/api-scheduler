@@ -14,14 +14,14 @@ type Config struct {
 
 func Load() *Config {
 	return &Config{
-		Port:         getEnv("APP_PORT", "8080"),
-		LogLevel:     getEnv("LOG_LEVEL", "info"),
+		Port:         GetEnv("APP_PORT", "8080"),
+		LogLevel:     GetEnv("LOG_LEVEL", "info"),
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
 	}
 }
 
-func getEnv(key, fallback string) string {
+func GetEnv(key, fallback string) string {
 	if v, ok := os.LookupEnv(key); ok {
 		return v
 	}

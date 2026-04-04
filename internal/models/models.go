@@ -1,20 +1,20 @@
 package models
 
 type Point struct {
-	X float64 `json:"x" validate:"required"`
-	Y float64 `json:"y" validate:"required"`
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
 }
 
 type Coordinates struct {
-	XMin float64 `json:"x_min" validate:"required"`
-	XMax float64 `json:"x_max" validate:"required,gtfield=XMin"`
-	YMin float64 `json:"y_min" validate:"required"`
-	YMax float64 `json:"y_max" validate:"required,gtfield=YMin"`
+	XMin float64 `json:"x_min"`
+	XMax float64 `json:"x_max" validate:"gtfield=XMin"`
+	YMin float64 `json:"y_min"`
+	YMax float64 `json:"y_max" validate:"gtfield=YMin"`
 }
 
 type SimulationConfig struct {
 	UECnt            int         `json:"ue_cnt" validate:"required,min=1,max=1000"`
-	UEIDs            []int       `json:"ue_ids" validate:"required,len=ue_cnt"`
+	UEIDs            []int       `json:"ue_ids" validate:"required"`
 	UEMovePattern    string      `json:"ue_move_pattern" validate:"required,oneof=RandomWalk Static ConstantVelocity"`
 	UECoords         Coordinates `json:"ue_coords" validate:"required"`
 	UETrafficPattern string      `json:"ue_traffic_pattern" validate:"required,oneof=Poisson CBR FTP"`
